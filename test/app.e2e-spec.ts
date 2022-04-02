@@ -24,5 +24,24 @@ describe('App e2e', () => {
   afterAll(() => {
     app.close();
   });
-  it.todo('should pass');
+
+  describe('Auth', () => {
+    describe('Signup', () => {
+      it.todo('Should signup');
+    });
+    describe('Signin', () => {});
+
+  });
+
+  describe('User', () => {
+    describe('Get Me', () => {});
+  });
+
+  describe('Camp', () => {
+    describe('Create Camp', () => {});
+    describe('Get Camp', () => {});
+    describe('Update Camp', () => {});
+    describe('Delete Camp', () => {});
+
+  });
 });
