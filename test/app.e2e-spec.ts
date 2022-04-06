@@ -30,12 +30,12 @@ describe('App e2e', () => {
   });
 
   describe('Auth', () => {
+    const dto: AuthDto = {
+      email: 'abc@abc.com',
+      password: '12345',
+    };
     describe('Signup', () => {
       it('Should signup', () => {
-        const dto: AuthDto = {
-          email: 'abc@abc.com',
-          password: '12345',
-        };
         return pactum
           .spec()
           .post('/auth/signup')
@@ -44,7 +44,16 @@ describe('App e2e', () => {
           .inspect();
       });
     });
-    describe('Signin', () => {});
+    describe('Signin', () => {
+      it('Should signin', () => {
+        return pactum
+          .spec()
+          .post('/auth/signin')
+          .withBody(dto)
+          .expectStatus(200)
+          .inspect();
+      });
+    });
   });
 
   describe('User', () => {
