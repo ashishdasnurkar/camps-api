@@ -35,13 +35,22 @@ describe('App e2e', () => {
       password: '12345',
     };
     describe('Signup', () => {
+      it('Should throw error if email is empty', () => {
+        return pactum
+          .spec()
+          .post('/auth/signup')
+          .withBody({
+            password: dto.password,
+          })
+          .expectStatus(400);
+      });
+
       it('Should signup', () => {
         return pactum
           .spec()
           .post('/auth/signup')
           .withBody(dto)
-          .expectStatus(201)
-          .inspect();
+          .expectStatus(201);
       });
     });
     describe('Signin', () => {
@@ -50,8 +59,7 @@ describe('App e2e', () => {
           .spec()
           .post('/auth/signin')
           .withBody(dto)
-          .expectStatus(200)
-          .inspect();
+          .expectStatus(200);
       });
     });
   });
