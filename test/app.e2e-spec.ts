@@ -55,6 +55,10 @@ describe('App e2e', () => {
           .expectStatus(400);
       });
 
+      it('Should throw error if no details provided', () => {
+        return pactum.spec().post('/auth/signup').expectStatus(400);
+      });
+
       it('Should signup', () => {
         return pactum
           .spec()
@@ -64,6 +68,30 @@ describe('App e2e', () => {
       });
     });
     describe('Signin', () => {
+      it('Should throw error if email is empty', () => {
+        return pactum
+          .spec()
+          .post('/auth/signin')
+          .withBody({
+            password: dto.password,
+          })
+          .expectStatus(400);
+      });
+
+      it('Should throw error if password is empty', () => {
+        return pactum
+          .spec()
+          .post('/auth/signin')
+          .withBody({
+            email: dto.email,
+          })
+          .expectStatus(400);
+      });
+
+      it('Should throw error if no details provided', () => {
+        return pactum.spec().post('/auth/signin').expectStatus(400);
+      });
+
       it('Should signin', () => {
         return pactum
           .spec()
