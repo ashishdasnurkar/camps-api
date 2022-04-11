@@ -115,12 +115,14 @@ describe('App e2e', () => {
           .expectStatus(200);
       });
     });
+    describe('Update User', () => {});
   });
 
   describe('Camp', () => {
     describe('Create Camp', () => {});
-    describe('Get Camp', () => {});
-    describe('Update Camp', () => {});
-    describe('Delete Camp', () => {});
+    describe('Get Camps', () => {});
+    describe('Get Camp by id', () => {});
+    describe('Update Camp by id', () => {});
+    describe('Delete Camp by id', () => {});
   });
 });
