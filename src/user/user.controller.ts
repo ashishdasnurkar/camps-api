@@ -15,8 +15,8 @@ export class UserController {
   }
 
   @Patch()
+  @UseGuards(JwtGuard)
   editUser(@Body() dto: EditUserDto, @GetUser() user: User) {
-    console.log(user);
     return this.userService.editUser(user.id, dto);
   }
 }
