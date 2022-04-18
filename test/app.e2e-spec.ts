@@ -5,6 +5,7 @@ import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { PrismaService } from '../src/prisma/prisma.service';
 import { AuthDto } from '../src/auth/dto';
 import { EditUserDto } from '../src/user/dto';
+import { CreateCampDto } from '../src/camp/dto';
 
 describe('App e2e', () => {
   let app: INestApplication;
@@ -137,7 +138,36 @@ describe('App e2e', () => {
   });
 
   describe('Camp', () => {
-    describe('Create Camp', () => {});
+    describe('Get empty Camps', () => {
+      it('Should get emty camps', () => {
+        return pactum
+          .spec()
+          .get('/camps')
+          .withHeaders({
+            Authorization: 'Bearer $S{userAt}',
+          })
+          .expectStatus(200)
+          .expectBody([]);
+      });
+    });
+    describe('Create Camp', () => {
+      const dto: CreateCampDto = {
+        name: 'Lakeside holiday',
+        location: 'Narrabean',
+        description: 'Great camping and caravan facility with lakeview',
+      };
+      it('Should create a new camp', () => {
+        return pactum
+          .spec()
+          .post('/camps')
+          .withHeaders({
+            Authorization: 'Bearer $S{userAt}',
+          })
+          .withBody(dto)
+          .expectStatus(201)
+          .inspect();
+      });
+    });
     describe('Get Camps', () => {});
     describe('Get Camp by id', () => {});
     describe('Update Camp by id', () => {});
