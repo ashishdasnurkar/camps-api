@@ -168,7 +168,18 @@ describe('App e2e', () => {
           .inspect();
       });
     });
-    describe('Get Camps', () => {});
+    describe('Get user camps', () => {
+      it('Should get user camps', () => {
+        return pactum
+          .spec()
+          .get('/camps')
+          .withHeaders({
+            Authorization: 'Bearer $S{userAt}',
+          })
+          .expectStatus(200);
+      });
+
+    });
     describe('Get Camp by id', () => {});
     describe('Update Camp by id', () => {});
     describe('Delete Camp by id', () => {});
