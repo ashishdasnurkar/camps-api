@@ -165,7 +165,7 @@ describe('App e2e', () => {
           })
           .withBody(dto)
           .expectStatus(201)
-          .inspect();
+          .stores('campId', 'id');
       });
     });
     describe('Get user camps', () => {
@@ -180,7 +180,21 @@ describe('App e2e', () => {
           .expectJsonLength(1);
       });
     });
-    describe('Get Camp by id', () => {});
+    describe('Get Camp by id', () => {
+      it('Should get user camp by id', () => {
+        return pactum
+          .spec()
+          .get('/camps/{id}')
+          .withPathParams({
+            id: '$S{campId}',
+          })
+          .withHeaders({
+            Authorization: 'Bearer $S{userAt}',
+          })
+          .expectStatus(200)
+          .expectBodyContains('$S{campId}');
+      });
+    });
     describe('Update Camp by id', () => {});
     describe('Delete Camp by id', () => {});
   });

@@ -22,7 +22,14 @@ export class CampService {
       },
     });
   }
-  getCampById(userId: number, campId: number) {}
+  getCampById(userId: number, campId: number) {
+    return this.prisma.camp.findFirst({
+      where: {
+        id: campId,
+        userId,
+      },
+    });
+  }
   editCampById(userId: number, campId: number, dto: EditCampDto) {}
   deleteCampById(userId: number, campId: number) {}
 }
