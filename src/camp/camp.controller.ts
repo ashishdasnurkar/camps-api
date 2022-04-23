@@ -36,7 +36,7 @@ export class CampController {
     return this.campService.getCampById(userId, campId);
   }
 
-  @Patch('id')
+  @Patch(':id')
   editCampById(
     @GetUser('id') userId: number,
     @Param('id', ParseIntPipe) campId: number,

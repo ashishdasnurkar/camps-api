@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 import { CreateCampDto, EditCampDto } from './dto';
 import { PrismaService } from '../prisma/prisma.service';
 
@@ -30,6 +30,24 @@ export class CampService {
       },
     });
   }
-  editCampById(userId: number, campId: number, dto: EditCampDto) {}
+  async editCampById(userId: number, campId: number, dto: EditCampDto) {
+    const camp = await this.prisma.camp.findUnique({
+      where: {
+        id: campId,
+      },
+    });
+    if (!camp || camp.userId != userId) {
+      throw new ForbiddenException('Access to resource denied!');
+    }
+
+    return this.prisma.camp.update({
+      where: {
+        id: campId,
+      },
+      data: {
+        ...dto,
+      },
+    });
+  }
   deleteCampById(userId: number, campId: number) {}
 }
