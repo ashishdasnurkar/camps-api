@@ -211,7 +211,7 @@ describe('App e2e', () => {
           })
           .withBody(dto)
           .expectStatus(200)
-          .inspect();
+          .expectBodyContains(dto.description);
       });
     });
     describe('Delete Camp by id', () => {});
