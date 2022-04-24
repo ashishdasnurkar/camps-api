@@ -2,7 +2,7 @@ import {
   Body,
   Controller,
   Delete,
-  Get,
+  Get, HttpCode, HttpStatus,
   Param,
   ParseIntPipe,
   Patch,
@@ -44,8 +44,8 @@ export class CampController {
   ) {
     return this.campService.editCampById(userId, campId, dto);
   }
-
-  @Delete('id')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @Delete(':id')
   deleteCampById(
     @GetUser('id') userId: number,
     @Param('id', ParseIntPipe) campId: number,

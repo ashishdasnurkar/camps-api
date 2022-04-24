@@ -49,5 +49,19 @@ export class CampService {
       },
     });
   }
-  deleteCampById(userId: number, campId: number) {}
+  async deleteCampById(userId: number, campId: number) {
+    const camp = await this.prisma.camp.findUnique({
+      where: {
+        id: campId,
+      },
+    });
+    if (!camp || camp.userId != userId) {
+      throw new ForbiddenException('Access to resource denied!');
+    }
+    await this.prisma.camp.delete({
+      where: {
+        id: campId,
+      },
+    });
+  }
 }
