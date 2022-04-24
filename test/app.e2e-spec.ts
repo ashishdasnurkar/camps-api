@@ -5,7 +5,7 @@ import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { PrismaService } from '../src/prisma/prisma.service';
 import { AuthDto } from '../src/auth/dto';
 import { EditUserDto } from '../src/user/dto';
-import {CreateCampDto, EditCampDto} from '../src/camp/dto';
+import { CreateCampDto, EditCampDto } from '../src/camp/dto';
 
 describe('App e2e', () => {
   let app: INestApplication;
@@ -215,5 +215,17 @@ describe('App e2e', () => {
       });
     });
     describe('Delete Camp by id', () => {});
+    it('Should delete user camp by id', () => {
+      return pactum
+        .spec()
+        .delete('/camps/{id}')
+        .withPathParams({
+          id: '$S{campId}',
+        })
+        .withHeaders({
+          Authorization: 'Bearer $S{userAt}',
+        })
+        .expectStatus(204);
+    });
   });
 });
