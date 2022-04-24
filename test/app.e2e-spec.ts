@@ -214,18 +214,29 @@ describe('App e2e', () => {
           .expectBodyContains(dto.description);
       });
     });
-    describe('Delete Camp by id', () => {});
-    it('Should delete user camp by id', () => {
-      return pactum
-        .spec()
-        .delete('/camps/{id}')
-        .withPathParams({
-          id: '$S{campId}',
-        })
-        .withHeaders({
-          Authorization: 'Bearer $S{userAt}',
-        })
-        .expectStatus(204);
+    describe('Delete Camp by id', () => {
+      it('Should delete user camp by id', () => {
+        return pactum
+          .spec()
+          .delete('/camps/{id}')
+          .withPathParams({
+            id: '$S{campId}',
+          })
+          .withHeaders({
+            Authorization: 'Bearer $S{userAt}',
+          })
+          .expectStatus(204);
+      });
+      it('Should get emty camps after delete', () => {
+        return pactum
+          .spec()
+          .get('/camps')
+          .withHeaders({
+            Authorization: 'Bearer $S{userAt}',
+          })
+          .expectStatus(200)
+          .expectBody([]);
+      });
     });
   });
 });
